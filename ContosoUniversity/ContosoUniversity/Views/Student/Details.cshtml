@@ -10,30 +10,72 @@
     <h4>Student</h4>
     <hr />
     <dl class="dl-horizontal">
+        <!--displays the label for the LastName property-->
         <dt>
             @Html.DisplayNameFor(model => model.LastName)
         </dt>
-
+        <!--displays the value for the LastName property-->
         <dd>
             @Html.DisplayFor(model => model.LastName)
         </dd>
-
+        <!--displays the label for the FirstName property-->
         <dt>
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
-
+        <!--displays the value for the FirstName property-->
         <dd>
             @Html.DisplayFor(model => model.FirstName)
         </dd>
-
+        <!--displays the label for the EnrollmnentDate property-->
         <dt>
             @Html.DisplayNameFor(model => model.EnrollmentDate)
         </dt>
-
+        <!--displays the value for the EnrollmentDate property-->
         <dd>
             @Html.DisplayFor(model => model.EnrollmentDate)
         </dd>
-
+        <!--displays the label for the Enrollments list property-->
+        <dt>
+            @Html.DisplayNameFor(model => model.Enrollments)
+        </dt>
+        <!--Displays all the values for each item in the Enrollments list property-->
+        <dd>
+            <!--organizes the values of the items in the list into a table using razer styling-->
+            <table class="table">
+                <!--The column titles for the table-->
+                <tr>
+                    <th>Course Title</th>
+                    <th>Course Credits</th>
+                    <th>Course ID</th>
+                    <th>Grade</th>
+                </tr>
+                <!--iterates through the Enrollments list property-->
+                @foreach (var item in Model.Enrollments)
+                {
+                    <!--organizes values into rows-->
+                    <tr>
+                        <!--displays the value of the Course.Title property of each item in the list-->
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Course.Title)
+                        </td>
+                        <!--displays the value of the Course.Credits property of each item in the list-->
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Course.Credits)
+                        </td>
+                        <!--displays the value of the Course.CourseID property of each item in the list-->
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Course.CourseID)
+                        </td>
+                        <!--displays the value of the Grade property of each item in the list-->
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Grade)
+                        </td>
+                    </tr>
+                    <!--End of row-->
+                }
+            </table>
+            <!--End of table-->
+        </dd>
     </dl>
 </div>
 <p>

@@ -76,6 +76,7 @@ C:\Users\Owner\Documents\GitHub\C--Contoso-University-Full-Project\ContosoUniver
 C:\Users\Owner\Documents\GitHub\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\bin\Newtonsoft.Json.xml
 C:\Users\Owner\Documents\GitHub\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\bin\Antlr3.Runtime.pdb
 C:\Users\Owner\Documents\GitHub\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Owner\Documents\GitHub\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.csprojAssemblyReference.cache
 C:\Users\Owner\Documents\GitHub\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.csproj.CoreCompileInputs.cache
 C:\Users\Owner\Documents\GitHub\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.csproj.CopyComplete
 C:\Users\Owner\Documents\GitHub\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.dll
