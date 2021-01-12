@@ -11,14 +11,14 @@
 </p>
 <table class="table">
     <tr>
+        <!--Clicking this will sort the students by last name, alternating between descending order and descending order-->
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
+        <th>First Name</th>
+        <!--Clicking this will sort the students by enrollment date, alternating between descending order and descending order-->
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EnrollmentDate)
+            @Html.ActionLink("Enrollment Date", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
         <th></th>
     </tr>

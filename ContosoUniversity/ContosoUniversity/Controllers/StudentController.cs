@@ -16,9 +16,37 @@ namespace ContosoUniversity.Controllers
         private SchoolContext db = new SchoolContext();
 
         // GET: Students
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
-            return View(db.Students.ToList());
+            //defines how the view/webpage should sort Students, such as sorting by name or date
+            ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+            //grabs all the students in the database and saves them to a variable named "students"
+            var students = from s in db.Students select s;
+            
+            //determines how the user chose to sort the Students on the view/webpage, and handles their choice accordingly
+            switch (sortOrder)
+            {
+                //if the user chose to sort by name, orders the items in the "students" variable by last name in descending order
+                case "name_desc":
+                    students = students.OrderByDescending(s => s.LastName);
+                    break;
+                //if the user chose to sort by date, orders the items in the "students" variable by enrollment date in ascending order
+                case "Date":
+                    students = students.OrderBy(s => s.EnrollmentDate);
+                    break;
+                //if the user chose to sort by date, orders the items in "students" by enrollment date in descending order
+                case "date_desc":
+                    students = students.OrderByDescending(s => s.EnrollmentDate);
+                    break;
+                //unless specified otherwise, sorts students by last name in ascending order
+                default:
+                    students = students.OrderBy(s => s.LastName);
+                    break;
+            }
+
+            //after sorting the students, displays the webpage with the students in the newly sorted order
+            return View(students.ToList());
         }
 
         // GET: Students/Details/5
