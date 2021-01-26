@@ -16,7 +16,7 @@ namespace ContosoUniversity.Controllers
         private SchoolContext db = new SchoolContext();
 
         // GET: Students
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index(string sortOrder, string searchString)
         {
             //defines how the view/webpage should sort Students, such as sorting by name or date
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
@@ -24,6 +24,13 @@ namespace ContosoUniversity.Controllers
             //grabs all the students in the database and saves them to a variable named "students"
             var students = from s in db.Students select s;
             
+            //determines if the string that holds the search term the user entered is not empty, and if it isn't, then grabs the students
+            //in the database with the first name or last name that contains the search term
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                students = students.Where(s => s.LastName.Contains(searchString) || s.FirstName.Contains(searchString));
+            }
+
             //determines how the user chose to sort the Students on the view/webpage, and handles their choice accordingly
             switch (sortOrder)
             {
