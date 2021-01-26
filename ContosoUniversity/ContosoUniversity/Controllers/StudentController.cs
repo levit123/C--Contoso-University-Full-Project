@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
+using PagedList;
 
 namespace ContosoUniversity.Controllers
 {
@@ -16,14 +17,32 @@ namespace ContosoUniversity.Controllers
         private SchoolContext db = new SchoolContext();
 
         // GET: Students
-        public ActionResult Index(string sortOrder, string searchString)
+        public ActionResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
+            //sets the ViewBag property "CurrentSort" to the current sort order, which ensures that sort order is maintained
+            ViewBag.CurrentSort = sortOrder;
             //defines how the view/webpage should sort Students, such as sorting by name or date
             ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
             ViewBag.DateSortParm = sortOrder == "Date" ? "date_desc" : "Date";
             //grabs all the students in the database and saves them to a variable named "students"
             var students = from s in db.Students select s;
-            
+
+            //maintains the filter settings during paging. if the search string is changed during the paging procesds, then reset the page to 1,
+            //so the filter can display the proper data. keep in mind that the search string is only changed if the user changes the text in the
+            //text box and clicks the submit button, in which case, the "searchString" parameter would not be null. basically, this all ensures
+            //that the Index view is displaying the proper info based on the search term and whether or not that search term is changed
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            //if the search term is null, meaning it's not defined, then define the search term by setting it's value to the current filter settings
+            else
+            {
+                searchString = currentFilter;
+            }
+            //provides the Index view with the current filter string, which maintains the filter settings used to display certain students
+            ViewBag.CurrentFilter = searchString;
+
             //determines if the string that holds the search term the user entered is not empty, and if it isn't, then grabs the students
             //in the database with the first name or last name that contains the search term
             if (!String.IsNullOrEmpty(searchString))
@@ -52,8 +71,13 @@ namespace ContosoUniversity.Controllers
                     break;
             }
 
-            //after sorting the students, displays the webpage with the students in the newly sorted order
-            return View(students.ToList());
+            int pageSize = 3;
+            //the "(page ?? 1)" means return the value of the "page" variable if it has a value, but the "page" variable is null, then return a value of 1
+            int pageNumber = (page ?? 1);
+            //after sorting the students based on the search term and the order chosen, converts the students to a single page of students
+            //in a collection type that supports paging (that type would, in this case, be a paged list). that single page of students is then
+            //passed to the view.
+            return View(students.ToPagedList(pageNumber, pageSize));
         }
 
         // GET: Students/Details/5

@@ -1,54 +1,68 @@
-﻿@model IEnumerable<ContosoUniversity.Models.Student>
+﻿@model PagedList.IPagedList<ContosoUniversity.Models.Student>
+<!--the above line specifies that the model this view uses is a PagedList object instead of just a regular List object-->
+<!--the below line gives the view access to the paging buttons -->
+@using PagedList.Mvc;
+
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Students";
 }
 
-<h2>Index</h2>
+<h2>Students</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 
 <!--Search box that allows the user to search for a specific student-->
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "Student", FormMethod.Get))
 {
     <p>
-        Find by name: @Html.TextBox("searchString")
+        Find by name: @Html.TextBox("searchString", ViewBag.CurrentFiler as string)
         <input type="submit" value="Search" />
     </p>
 }
 <table class="table">
     <tr>
-        <!--Clicking this will sort the students by last name, alternating between descending order and descending order-->
+        <!--Clicking this will sort the students by last name, alternating between descending order and descending order. It will also
+            apply the current sorting filter based on whether or not a search term has been defined-->
         <th>
-            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm })
+            @Html.ActionLink("Last Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th>First Name</th>
-        <!--Clicking this will sort the students by enrollment date, alternating between descending order and descending order-->
+        <!--Clicking this will sort the students by enrollment date, alternating between descending order and descending order. It will also
+            apply the current sorting filter based on whether or not a search term has been defined-->
         <th>
-            @Html.ActionLink("Enrollment Date", "Index", new { sortOrder = ViewBag.DateSortParm })
+            @Html.ActionLink("Enrollment Date", "Index", new { sortOrder = ViewBag.DateSortParm, currentFilter = ViewBag.CurrentFilter })
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.EnrollmentDate)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.EnrollmentDate)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ID })
+            </td>
+        </tr>
+    }
 
 </table>
+<br />
+<!--displays the current page and the total number of pages-->
+Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
+<!--Displays the paging buttons. You can customize the paging buttons, as well as any URLs associated with them.
+    For different options and more information on customizing paging buttons, see here: https://github.com/TroyGoode/PagedList -->
+@Html.PagedListPager(Model, page => Url.Action("Index", new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

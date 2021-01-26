@@ -81,3 +81,7 @@ C:\Users\Owner\Documents\GitHub\C--Contoso-University-Full-Project\ContosoUniver
 C:\Users\Owner\Documents\GitHub\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.csproj.CopyComplete
 C:\Users\Owner\Documents\GitHub\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.dll
 C:\Users\Owner\Documents\GitHub\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.pdb
+C:\Users\Owner\Documents\GitHub\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\bin\PagedList.dll
+C:\Users\Owner\Documents\GitHub\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\bin\PagedList.Mvc.dll
+C:\Users\Owner\Documents\GitHub\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\bin\PagedList.xml
+C:\Users\Owner\Documents\GitHub\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\bin\PagedList.Mvc.xml
