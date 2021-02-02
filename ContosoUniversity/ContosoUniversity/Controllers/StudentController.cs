@@ -9,6 +9,7 @@ using System.Web.Mvc;
 using ContosoUniversity.DAL;
 using ContosoUniversity.Models;
 using PagedList;
+using System.Data.Entity.Infrastructure;
 
 namespace ContosoUniversity.Controllers
 {
@@ -123,8 +124,8 @@ namespace ContosoUniversity.Controllers
                     return RedirectToAction("Index");
                 }
             }
-            //handles any DataExcepton errors that occur
-            catch (DataException dex)
+            //handles any RetryLimitExceededException errors that occur
+            catch (RetryLimitExceededException dex)
             {
                 //logs a standard error message
                 ModelState.AddModelError("", "Unable to save changes. Try again later, and if the problem persists, contact your system administrator.");
@@ -175,8 +176,8 @@ namespace ContosoUniversity.Controllers
                     db.SaveChanges();
                     return RedirectToAction("Index");
                 }
-                //handles any DataException errors that may occur
-                catch (DataException dex)
+                //handles any RetryLimitExceededException errors that may occur
+                catch (RetryLimitExceededException dex)
                 {
                     //logs a standard error message
                     ModelState.AddModelError("", "Unable to save changes. Try again later, and if the problem persists, contact your system administrator.");
@@ -232,8 +233,8 @@ namespace ContosoUniversity.Controllers
                 //saves the changes made to the database
                 db.SaveChanges();
             }
-            //handles any DataException errors that may occur
-            catch (DataException)
+            //handles any RetryLimitExceededException errors that may occur
+            catch (RetryLimitExceededException)
             {
                 //displays the Delete page with the appropriate error
                 return RedirectToAction("Delete", new { id = id, saveChangesError = true });
