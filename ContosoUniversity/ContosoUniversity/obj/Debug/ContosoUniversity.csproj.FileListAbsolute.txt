@@ -166,8 +166,9 @@ C:\Users\levit\Documents\C--Contoso-University-Full-Project\ContosoUniversity\Co
 C:\Users\levit\Documents\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\bin\Newtonsoft.Json.xml
 C:\Users\levit\Documents\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\bin\Antlr3.Runtime.pdb
 C:\Users\levit\Documents\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
-C:\Users\levit\Documents\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.csprojAssemblyReference.cache
 C:\Users\levit\Documents\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.csproj.CoreCompileInputs.cache
 C:\Users\levit\Documents\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.csproj.CopyComplete
 C:\Users\levit\Documents\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.dll
 C:\Users\levit\Documents\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.pdb
+C:\Users\levit\Documents\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.Migrations.InitialCreate.resources
+C:\Users\levit\Documents\C--Contoso-University-Full-Project\ContosoUniversity\ContosoUniversity\obj\Debug\ContosoUniversity.csproj.GenerateResource.cache
