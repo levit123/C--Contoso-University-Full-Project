@@ -6,6 +6,7 @@
     using System.Linq;
     using System.Collections.Generic;
     using ContosoUniversity.Models;
+    using ContosoUniversity.DAL;
 
     internal sealed class Configuration : DbMigrationsConfiguration<ContosoUniversity.DAL.SchoolContext>
     {
@@ -33,13 +34,40 @@
             students.ForEach(s => context.Students.AddOrUpdate(p => p.LastName, s));
             context.SaveChanges();
 
+            //creates and defines a list of Instructor objects
+            var instructors = new List<Instructor>
+            {
+                new Instructor { FirstName = "Kim", LastName = "Abercrombie", HireDate = DateTime.Parse("1995-03-11") },
+                new Instructor { FirstName = "Fadi", LastName = "Fakhouri", HireDate = DateTime.Parse("2002-07-06") },
+                new Instructor { FirstName = "Roger", LastName = "Harui", HireDate = DateTime.Parse("1998-07-01") },
+                new Instructor { FirstName = "Candace", LastName = "Kapoor", HireDate = DateTime.Parse("2001-01-15") },
+                new Instructor { FirstName = "Roger", LastName = "Zheng", HireDate = DateTime.Parse("2004-02-12") }
+            };
+
+            //adds the list of Instructor objects to the context for the database, or updates their info in the context if they already exist
+            instructors.ForEach(s => context.Instructors.AddOrUpdate(p => p.LastName, s));
+            context.SaveChanges();
+
+            //creates and defines a list of Department objects
+            var departments = new List<Department>
+            {
+                new Department { Name = "English", Budget = 350000, StartDate = DateTime.Parse("2007-09-01"), InstructorID = instructors.Single( i => i.LastName == "Abercrombie").ID },
+                new Department { Name = "Mathematics", Budget = 100000, StartDate = DateTime.Parse("2007-09-01"), InstructorID = instructors.Single( i => i.LastName == "Fakhouri").ID },
+                new Department { Name = "Engineering", Budget = 350000, StartDate = DateTime.Parse("2007-09-01"), InstructorID = instructors.Single( i => i.LastName == "Harui").ID },
+                new Department { Name = "Economics",   Budget = 100000, StartDate = DateTime.Parse("2007-09-01"), InstructorID = instructors.Single( i => i.LastName == "Kapoor").ID }
+            };
+
+            //adds the list of Department objects to the context for the database, or updates their info in the context if they already exist
+            departments.ForEach(s => context.Departments.AddOrUpdate(p => p.Name, s));
+            context.SaveChanges();
+
             //creates and defines a list of Course objects
             var courses = new List<Course>
             {
-                new Course { CourseID = 1050, Title = "Chemistry", Credits = 3 },
-                new Course { CourseID = 4022, Title = "Microeconomics", Credits = 3 },
-                new Course { CourseID = 4041, Title = "Macroeconomics", Credits = 3 },
-                new Course { CourseID = 1045, Title = "Calculus", Credits = 4 },
+                new Course { CourseID = 1050, Title = "Chemistry", Credits = 3, DepartmentID = departments.Single(s => s.Name == "Engineering").DepartmentID, Instructors = new List<Instructor>() },
+                new Course { CourseID = 4022, Title = "Microeconomics", Credits = 3, DepartmentID = departments.Single(s => s.Name == "Economics").DepartmentID, Instructors = new List<Instructor>() },
+                new Course { CourseID = 4041, Title = "Macroeconomics", Credits = 3, DepartmentID = departments.Single(s => s.Name == "Economics").DepartmentID, Instructors = new List<Instructor>() },
+                new Course { CourseID = 1045, Title = "Calculus", Credits = 4, DepartmentID = departments.Single(s => s.Name == "Calculus").DepartmentID, Instructors = new List<Instructor>() },
                 new Course { CourseID = 3141, Title = "Trigonometry", Credits = 4 },
                 new Course { CourseID = 2021, Title = "Composition", Credits = 3 },
                 new Course { CourseID = 2042, Title = "Literature", Credits = 4 }
@@ -47,6 +75,18 @@
 
             //adds the list of Course objects to the context for the database, or updates their info in the context if they already exist
             courses.ForEach(s => context.Courses.AddOrUpdate(p => p.Title, s));
+            context.SaveChanges();
+
+            //creates and defines a list of OfficeAssignment objects
+            var officeAssignments = new List<OfficeAssignment>
+            {
+                new OfficeAssignment { InstructorID = instructors.Single( i => i.LastName == "Fakhouri").ID, Location = "Smith 17" },
+                new OfficeAssignment { InstructorID = instructors.Single( i => i.LastName == "Harui").ID, Location = "Gowan 27" },
+                new OfficeAssignment { InstructorID = instructors.Single( i => i.LastName == "Kapoor").ID, Location = "Thompson 304" },
+            };
+
+            //adds the list of OfficeAssignment objects to the context for the database, or updates their info in the context if they already exist
+            officeAssignments.ForEach(s => context.OfficeAssignments.AddOrUpdate(p => p.InstructorID, s));
             context.SaveChanges();
 
             //creates a list of Enrollment objects, which holds info that ties the students to the courses
@@ -128,6 +168,16 @@
                 }
             }
             context.SaveChanges();
+        }
+
+        void AddOrUpdateInstructor(SchoolContext context, string courseTitle, string instructorName)
+        {
+            var crs = context.Courses.SingleOrDefault(c => c.Title == courseTitle);
+            var inst = crs.Instructors.SingleOrDefault(i => i.LastName == instructorName);
+            if (inst == null)
+            {
+                crs.Instructors.Single(i => i.LastName == instructorName);
+            }    
         }
     }
 }

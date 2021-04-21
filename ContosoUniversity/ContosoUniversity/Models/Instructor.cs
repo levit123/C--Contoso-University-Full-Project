@@ -9,6 +9,8 @@ namespace ContosoUniversity.Models
 {
     public class Instructor
     {
+        public int ID { get; set; }
+
         [Required]
         [Display(Name = "Last Name")]
         [StringLength(50)]
